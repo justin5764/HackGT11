@@ -36,8 +36,8 @@ export default function Home() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return {
       emotionsDetected: ['angry'], // You can change this to test different scenarios
-      bodyLanguage: 'clenching fists',
-      audioTranscription: 'I feel like I am getting mad about everything.',
+      bodyLanguage: 'fisted',
+      audioTranscription: 'I want to punch everyone.',
     };
   };
 
