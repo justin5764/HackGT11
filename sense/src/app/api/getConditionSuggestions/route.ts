@@ -53,6 +53,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 }
 
+const SYMPTOM_MAPPING: { [key: string]: string[] } = {
+  sad: ['feeling sad', 'low mood', 'depression'],
+  sadness: ['feeling sad', 'low mood', 'depression'],
+  angry: ['anger', 'irritability', 'frustration'],
+  mad: ['anger', 'irritability', 'frustration'],
+  happy: ['euphoria', 'joy', 'elation'],
+  anxious: ['anxiety', 'nervousness', 'worry'],
+  slouched: ['poor posture', 'back pain'],
+  'showing fists': ['aggression', 'hostility'],
+  tears: ['tension', 'stress'],
+  // Add more mappings as needed
+};
+
 // Helper function to extract symptoms from video analysis data
 function extractSymptomsFromAnalysis(videoAnalysis: VideoAnalysis): string[] {
   const { emotionsDetected, bodyLanguage, audioTranscription } = videoAnalysis;
@@ -60,41 +73,67 @@ function extractSymptomsFromAnalysis(videoAnalysis: VideoAnalysis): string[] {
   const extractedSymptoms: string[] = [];
 
   // Map emotions to potential symptoms
-  if (emotionsDetected.includes('angry') || emotionsDetected.includes('mad')) {
-    extractedSymptoms.push('anger', 'irritability', 'frustration', 'stress');
-  }
-  
-  // Add more emotions as needed
-  if (emotionsDetected.includes('sadness')) {
-    extractedSymptoms.push('feeling sad', 'low mood');
-  }
+  emotionsDetected.forEach((emotion) => {
+    const lowerEmotion = emotion.toLowerCase();
+    if (SYMPTOM_MAPPING[lowerEmotion]) {
+      extractedSymptoms.push(...SYMPTOM_MAPPING[lowerEmotion]);
+    } else {
+      // If no mapping exists, use the emotion as a symptom
+      extractedSymptoms.push(emotion);
+    }
+  });
 
   // Map body language to potential symptoms
-  if (bodyLanguage.includes('clenching fists')) {
-    extractedSymptoms.push('tension', 'stress');
+  if (bodyLanguage) {
+    const lowerBodyLanguage = bodyLanguage.toLowerCase();
+    if (SYMPTOM_MAPPING[lowerBodyLanguage]) {
+      extractedSymptoms.push(...SYMPTOM_MAPPING[lowerBodyLanguage]);
+    } else {
+      extractedSymptoms.push(bodyLanguage);
+    }
   }
-  
+
   // Extract keywords from audio transcription
   const transcriptionKeywords = extractKeywords(audioTranscription);
   extractedSymptoms.push(...transcriptionKeywords);
 
+  // Remove duplicates
   return Array.from(new Set(extractedSymptoms));
 }
 
 // Simple keyword extraction from transcription
-function extractKeywords(transcription: string): string[] {
-  const keywords = ['headache', 'fatigue', 'nausea', 'dizziness']; 
-  return keywords.filter((keyword) => transcription.toLowerCase().includes(keyword));
-}
+
 
 // Helper function to find matching conditions based on symptoms
 function findMatchingConditions(symptoms: string[]): HealthCondition[] {
   return HEALTH_CONDITIONS.filter((condition: HealthCondition) =>
     condition.synonyms?.some((synonym: string) =>
-      symptoms.some((symptom) => symptom.toLowerCase().includes(synonym.toLowerCase()))
+      symptoms.some((symptom: string) =>
+        symptom.toLowerCase().includes(synonym.toLowerCase()) ||
+        synonym.toLowerCase().includes(symptom.toLowerCase())
+      )
     )
   );
 }
+
+function extractKeywords(transcription: string): string[] {
+  const keywords = [
+    'headache',
+    'fatigue',
+    'nausea',
+    'dizziness',
+    'pains',
+    'tired',
+    'pissed',
+    'frustrated',
+    'anxious',
+    'nervous',
+    'worry',
+    // Add more relevant keywords as needed
+  ];
+  return keywords.filter((keyword) => transcription.toLowerCase().includes(keyword));
+}
+
 
 // Helper function to generate the prompt for OpenAI
 function generatePrompt(
