@@ -35,9 +35,9 @@ export default function Home() {
     // Simulating analysis. You can replace this with real analysis logic.
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return {
-      emotionsDetected: ['angry'], // You can change this to test different scenarios
-      bodyLanguage: 'fisted',
-      audioTranscription: 'I want to punch everyone.',
+      emotionsDetected: ['impatient'], // You can change this to test different scenarios
+      bodyLanguage: 'annoyed',
+      audioTranscription: 'I am very impatient.',
     };
   };
 
