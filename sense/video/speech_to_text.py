@@ -1,15 +1,8 @@
-import speech_recognition as sr
+import whisper
 
-def transcribe_audio(file_path):
-    recognizer = sr.Recognizer()
+video_path = 'PLACEHOLDER'
 
-    with sr.AudioFile(file_path) as source:
-        audio = recognizer.record(source)
-
-        try:
-            return recognizer.recognize_google(audio)
-        except sr.UnknownValueError:
-            print("Speech was unclear")
-        except sr.RequestError:
-            print("Error with the speech recognition service")
-        return None
+def main():
+    model = whisper.load_model("base")
+    result = model.transcribe(video_path, fp16=False, language="English")
+    return result["text"]
