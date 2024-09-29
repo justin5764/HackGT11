@@ -3,10 +3,10 @@ import { Metadata } from "next";
 import Page from ".";
 
 export const metadata: Metadata = {
-    title: "welcome",
-    description: "Web site created using create-react-app",
+    title: "article", 
+    description: "Page showing articles on how to get help for your diagnostic",
 };
 
-export default function WelcomePage(){
+export default function ArticlePage() {
     return <Page />;
 }

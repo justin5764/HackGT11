@@ -1,73 +1,60 @@
-import React from 'react';
+// src/app/components/NavBar.tsx
 
-interface NavBarProps {
-  showNext?: boolean;      // Optional prop for showing the Next button
-  showPrevious?: boolean;  // Optional prop for showing the Previous button
-  showForm?: boolean;      // Optional prop for showing the Form button
-}
+'use client';
 
-const NavBar: React.FC<NavBarProps> = ({ showNext, showPrevious, showForm }) => {
+import Link from 'next/link';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { usePathname } from 'next/navigation';
+
+const NavBar = () => {
+  const { user, error, isLoading } = useUser();
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: 'User Info', path: '/user-info' },
+    { name: 'Diagnosis', path: '/diagnosis' },
+    { name: 'Chatbot', path: '/chatbot' },
+    { name: 'Map', path: '/map' },
+  ];
+
   return (
-    <nav style={styles.nav}>
-      <div style={styles.logo}>sense logo</div>
+    <nav className="bg-gray-800 p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link href="/" className="text-white font-bold text-xl">
+          Sense
+        </Link>
+        <div className="flex items-center space-x-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.path}
+              className={`text-gray-300 hover:text-white ${
+                pathname === link.path ? 'underline' : ''
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
 
-      <div style={styles.navActions}>
-        {/* Conditionally render Previous button */}
-        {showPrevious && (
-          <button style={styles.navButton}>Previous</button>
-        )}
-
-        {/* Conditionally render Form button */}
-        {showForm && (
-          <button style={styles.navButton}>Form</button>
-        )}
-
-        {/* Conditionally render Next button */}
-        {showNext && (
-          <button style={styles.navButton}>Next</button>
-        )}
+          {isLoading && <div className="text-white">Loading...</div>}
+          {error && <div className="text-red-500">Error: {error.message}</div>}
+          {!isLoading && !user && (
+            <Link href="/api/auth/login" className="text-white ml-4">
+              Login
+            </Link>
+          )}
+          {!isLoading && user && (
+            <>
+              <span className="text-white ml-4">Hello, {user.name}</span>
+              <Link href="/api/auth/logout" className="text-white ml-2">
+                Logout
+              </Link>
+            </>
+          )}
+        </div>
       </div>
-
-      <button style={styles.logoutButton}>Log out</button>
     </nav>
   );
-};
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    background: 'linear-gradient(to right, #00a1ff, #007ba7)', // Blue gradient
-    padding: '10px 20px',
-    height: '70px',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-  },
-  logo: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  navActions: {
-    display: 'flex',
-    gap: '10px',  // Adds space between buttons
-  },
-  navButton: {
-    padding: '10px 15px',
-    backgroundColor: '#f1f1f1',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
-  logoutButton: {
-    padding: '10px 20px',
-    backgroundColor: '#f1f1f1',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
 };
 
 export default NavBar;
