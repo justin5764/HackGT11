@@ -5,7 +5,8 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import { UserInfo, VideoAnalysis, ApiResponse } from '../types'; // Adjust the import path as necessary
+import { UserInfo, VideoAnalysis, ApiResponse, ChatMessage } from '../types'; // Adjust the import path as necessary
+import Chatbot from '../components/Chatbot'; // Import the Chatbot component
 
 export default function Home() {
   const [userInfo, setUserInfo] = useState<UserInfo>({
@@ -14,6 +15,7 @@ export default function Home() {
   });
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoAnalysis, setVideoAnalysis] = useState<VideoAnalysis | null>(null);
+  const [diagnosis, setDiagnosis] = useState<string>(''); // To store the primary diagnosis
   const [suggestions, setSuggestions] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -55,6 +57,7 @@ export default function Home() {
     setLoading(true);
     setError('');
     setSuggestions('');
+    setDiagnosis('');
 
     try {
       const analysisData = await analyzeVideo();
@@ -69,6 +72,10 @@ export default function Home() {
         setError(response.data.error);
       } else {
         setSuggestions(response.data.suggestions);
+        // Extract the primary diagnosis from the suggestions
+        // This assumes that the diagnosis is mentioned at the beginning
+        const primaryDiagnosis = response.data.suggestions.split('\n')[0].replace(/^- \*\*(.*?)\*\*:.*/, '$1');
+        setDiagnosis(primaryDiagnosis || '');
       }
     } catch (err) {
       console.error('Error fetching suggestions:', err);
@@ -77,6 +84,7 @@ export default function Home() {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -146,11 +154,15 @@ export default function Home() {
             <p>{error}</p>
           </div>
         )}
-      </main>
-
+         {/* Display Chatbot After Diagnosis */}
+         {diagnosis && (
+          <Chatbot diagnosis={diagnosis} />
+        )}
+      </main>ç
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         {/* ... Your existing footer links ... */}
       </footer>
     </div>
   );
 }
+
