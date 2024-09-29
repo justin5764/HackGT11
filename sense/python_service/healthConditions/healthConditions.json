@@ -1,0 +1,603 @@
+[
+    {
+      "key_id": "17204",
+      "primary_name": "Major depression - recurrent",
+      "term_icd9_code": "296.30",
+      "term_icd9_text": "Major depressive disorder, recurrent episode, unspecified degree",
+      "consumer_name": "Major depression - recurrent",
+      "is_procedure": false,
+      "word_synonyms": "SADNESS;DEPRESSION;BLUES;DEPRESSED;AFFECTIVE;DEJECTION;DEJECTED",
+      "synonyms": [
+        "feeling sad",
+        "low mood",
+        "depression",
+        "annoyed"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/depression.html",
+          "Depression"
+        ]
+      ],
+      "icd10cm_codes": "F33.9",
+      "icd10cm": [
+        {
+          "code": "F33.9",
+          "name": "Major depressive disorder, recurrent, unspecified"
+        }
+      ]
+    },
+
+    {
+        "key_id": "10650",
+        "primary_name": "Neuroma - traumatic",
+        "term_icd9_code": null,
+        "term_icd9_text": null,
+        "consumer_name": "Neuroma - traumatic",
+        "is_procedure": false,
+        "word_synonyms": "NEUROMA;NEURILEMOMA;SCHWANNOMA;NEURILEMMA;NEUROLEMMA;TRAUMA;INJURY;DESTRUCTION;TRAUMATIC;DAMAGED;INJURED;INJURIES;HURT;ACCIDENT",
+        "synonyms": [
+          "agitation",
+          "restlessness",
+          "nervousness",
+          "anxiety",
+          "irritability"
+        ],
+        "info_link_data": [
+          [
+            "http://www.nlm.nih.gov/medlineplus/neuroma.html",
+            "Neuroma"
+          ]
+        ],
+        "icd10cm_codes": "T87.30",
+        "icd10cm": [
+          {
+            "code": "T87.30",
+            "name": "Neuroma of amputation stump, unspecified extremity"
+          }
+        ]
+      },
+    
+      {
+        "key_id": "X214",
+        "primary_name": "Post-traumatic stress disorder (PTSD)",
+        "term_icd9_code": null,
+        "term_icd9_text": null,
+        "consumer_name": "Post-traumatic stress disorder (PTSD)",
+        "is_procedure": false,
+        "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+        "synonyms": [
+          "anxiety",
+          "fear",
+          "stress",
+          "panic",
+          "agitation",
+          "restlessness",
+          "unease",
+          "distrust",
+          "caution",
+          "suspicion"
+        ],
+        "info_link_data": [
+          [
+            "http://www.nlm.nih.gov/medlineplus/ptsd.html",
+            "Post-Traumatic Stress Disorder"
+          ]
+        ],
+        "icd10cm_codes": "F43.10",
+        "icd10cm": [
+          {
+            "code": "F43.10",
+            "name": "Post-traumatic stress disorder, unspecified"
+          }
+        ]
+      },
+    
+    
+    {
+      "key_id": "17488",
+      "primary_name": "Generalized anxiety disorder",
+      "term_icd9_code": "300.02",
+      "term_icd9_text": "Generalized anxiety disorder",
+      "consumer_name": "Generalized anxiety disorder (GAD)",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "anxiety",
+        "nervousness",
+        "worry"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/anxiety.html",
+          "Anxiety"
+        ]
+      ],
+      "icd10cm_codes": "F41.1",
+      "icd10cm": [
+        {
+          "code": "F41.1",
+          "name": "Generalized anxiety disorder"
+        }
+      ]
+    },
+    {
+      "key_id": "2166",
+      "primary_name": "Depression",
+      "term_icd9_code": "311",
+      "term_icd9_text": "Depressive disorder, not elsewhere classified",
+      "consumer_name": "Depression",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "feeling sad",
+        "low mood",
+        "depression"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/depression.html",
+          "Depression"
+        ]
+      ],
+      "icd10cm_codes": "F32.A",
+      "icd10cm": [
+        {
+          "code": "F32.A",
+          "name": "Depression, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "2899",
+      "primary_name": "Schizophrenia - paranoid",
+      "term_icd9_code": "295.30",
+      "term_icd9_text": "Paranoid type schizophrenia, unspecified state",
+      "consumer_name": "Schizophrenia - paranoid",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "confused",
+        "puzzled",
+        "perplexed"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/ency/article/000936.htm",
+          "Schizophrenia - paranoid type"
+        ]
+      ],
+      "icd10cm_codes": "F20.0",
+      "icd10cm": [
+        {
+          "code": "F20.0",
+          "name": "Paranoid schizophrenia"
+        }
+      ]
+    },
+    {
+      "key_id": "17656",
+      "primary_name": "Oppositional defiant disorder (ODD)",
+      "term_icd9_code": null,
+      "term_icd9_text": null,
+      "consumer_name": "Oppositional defiant disorder (ODD)",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "aggression",
+        "hostility",
+        "irritability",
+        "frustration"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/ency/article/001537.htm",
+          "Oppositional defiant disorder"
+        ]
+      ],
+      "icd10cm_codes": "F91.3",
+      "icd10cm": [
+        {
+          "code": "F91.3",
+          "name": "Oppositional defiant disorder"
+        }
+      ]
+    },
+    {
+      "key_id": "17490",
+      "primary_name": "Borderline personality disorder",
+      "term_icd9_code": "301.83",
+      "term_icd9_text": "Borderline personality disorder",
+      "consumer_name": "Borderline personality disorder",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "agitation",
+        "restlessness",
+        "anxiety",
+        "irritability",
+        "emotional turmoil"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/personalitydisorders.html",
+          "Personality Disorders"
+        ]
+      ],
+      "icd10cm_codes": "F60.3",
+      "icd10cm": [
+        {
+          "code": "F60.3",
+          "name": "Borderline personality disorder"
+        }
+      ]
+    },
+    {
+      "key_id": "2900",
+      "primary_name": "Bipolar disorder",
+      "term_icd9_code": "296.80",
+      "term_icd9_text": "Bipolar disorder, unspecified",
+      "consumer_name": "Bipolar disorder",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "excitement",
+        "euphoria",
+        "enthusiasm",
+        "feeling sad",
+        "low mood",
+        "depression"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/bipolardisorder.html",
+          "Bipolar Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F31.9",
+      "icd10cm": [
+        {
+          "code": "F31.9",
+          "name": "Bipolar disorder, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "30030",
+      "primary_name": "Suicidal ideation",
+      "term_icd9_code": "300.9",
+      "term_icd9_text": "Unspecified nonpsychotic mental disorder",
+      "consumer_name": "Suicidal ideation",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "despair",
+        "hopelessness",
+        "helplessness",
+        "overwhelmed"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/suicide.html",
+          "Suicide"
+        ]
+      ],
+      "icd10cm_codes": "R45.851",
+      "icd10cm": [
+        {
+          "code": "R45.851",
+          "name": "Suicidal ideations"
+        }
+      ]
+    },
+    {
+      "key_id": "21799",
+      "primary_name": "Trichotillomania",
+      "term_icd9_code": "312.39",
+      "term_icd9_text": "Other disorders of impulse control",
+      "consumer_name": "Trichotillomania",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "compulsion",
+        "obsession",
+        "impulse control",
+        "hair pulling"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/ency/article/001517.htm",
+          "Trichotillomania"
+        ]
+      ],
+      "icd10cm_codes": "F63.3",
+      "icd10cm": [
+        {
+          "code": "F63.3",
+          "name": "Trichotillomania"
+        }
+      ]
+    },
+    {
+      "key_id": "17207",
+      "primary_name": "Bipolar disorder - manic phase",
+      "term_icd9_code": "296.40",
+      "term_icd9_text": "Bipolar affective disorder, manic, unspecified degree",
+      "consumer_name": "Bipolar disorder - manic phase",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "excitement",
+        "euphoria",
+        "enthusiasm",
+        "energetic",
+        "hyperactive"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/bipolardisorder.html",
+          "Bipolar Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F31.9",
+      "icd10cm": [
+        {
+          "code": "F31.9",
+          "name": "Bipolar disorder, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "12927",
+      "primary_name": "Chronic fatigue syndrome",
+      "term_icd9_code": "780.71",
+      "term_icd9_text": "Chronic fatigue syndrome",
+      "consumer_name": "Chronic fatigue syndrome",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "fatigue",
+        "tired",
+        "sluggish",
+        "inactive"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/chronicfatiguesyndrome.html",
+          "Chronic Fatigue Syndrome"
+        ]
+      ],
+      "icd10cm_codes": "R53.82",
+      "icd10cm": [
+        {
+          "code": "R53.82",
+          "name": "Chronic fatigue, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "17208",
+      "primary_name": "Bipolar disorder - depressed phase",
+      "term_icd9_code": "296.50",
+      "term_icd9_text": "Bipolar affective disorder, depressed, unspecified degree",
+      "consumer_name": "Bipolar disorder - depressed phase",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS;SADNESS;DEPRESSION;BLUES;DEPRESSED;AFFECTIVE;DEJECTION;DEJECTED",
+      "synonyms": [
+        "feeling sad",
+        "low mood",
+        "depression"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/bipolardisorder.html",
+          "Bipolar Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F31.30",
+      "icd10cm": [
+        {
+          "code": "F31.30",
+          "name": "Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "8236",
+      "primary_name": "Fibromyalgia",
+      "term_icd9_code": "729.1",
+      "term_icd9_text": "Mylagia and myositis, unspecified",
+      "consumer_name": "Fibromyalgia",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "fibromyositis",
+        "chronic pain",
+        "fatigue",
+        "pains"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/fibromyalgia.html",
+          "Fibromyalgia"
+        ]
+      ],
+      "icd10cm_codes": "M79.7",
+      "icd10cm": [
+        {
+          "code": "M79.7",
+          "name": "Fibromyalgia"
+        }
+      ]
+    },
+    {
+      "key_id": "11558",
+      "primary_name": "Obsessive-compulsive disorder",
+      "term_icd9_code": "300.3",
+      "term_icd9_text": "Obsessive-compulsive disorders",
+      "consumer_name": "Obsessive-compulsive disorder (OCD)",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "obsessive-compulsive disorder",
+        "compulsion",
+        "obsession"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/obsessivecompulsivedisorder.html",
+          "Obsessive-Compulsive Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F42.9",
+      "icd10cm": [
+        {
+          "code": "F42.9",
+          "name": "Obsessive-compulsive disorder, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "17217",
+      "primary_name": "Antisocial personality disorder",
+      "term_icd9_code": "301.7",
+      "term_icd9_text": "Antisocial personality disorder",
+      "consumer_name": "Antisocial personality disorder",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "aggression",
+        "hostility",
+        "irritability"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/ency/article/000921.htm",
+          "Personality Disorders"
+        ]
+      ],
+      "icd10cm_codes": "F60.2",
+      "icd10cm": [
+        {
+          "code": "F60.2",
+          "name": "Antisocial personality disorder"
+        }
+      ]
+    },
+    {
+      "key_id": "2164",
+      "primary_name": "Schizophrenia",
+      "term_icd9_code": "295.90",
+      "term_icd9_text": "Unspecified schizophrenia, unspecified state",
+      "consumer_name": "Schizophrenia",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "confused",
+        "puzzled",
+        "perplexed"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/schizophrenia.html",
+          "Schizophrenia"
+        ]
+      ],
+      "icd10cm_codes": "F20.9",
+      "icd10cm": [
+        {
+          "code": "F20.9",
+          "name": "Schizophrenia, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "17487",
+      "primary_name": "Panic disorder",
+      "term_icd9_code": null,
+      "term_icd9_text": null,
+      "consumer_name": "Panic disorder",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "panic",
+        "fear",
+        "anxiety",
+        "nervousness",
+        "worry",
+        "trembling",
+        "restlessness"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/panicdisorder.html",
+          "Panic Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F41.0",
+      "icd10cm": [
+        {
+          "code": "F41.0",
+          "name": "Panic disorder [episodic paroxysmal anxiety]"
+        }
+      ]
+    },
+    {
+      "key_id": "17209",
+      "primary_name": "Bipolar disorder - mixed",
+      "term_icd9_code": "296.60",
+      "term_icd9_text": "Bipolar affective disorder, mixed, unspecified degree",
+      "consumer_name": "Bipolar disorder - mixed",
+      "is_procedure": false,
+      "word_synonyms": "DISORDER;SYNDROME;DISEASES;CONDITION;SICKNESS;ILLNESS",
+      "synonyms": [
+        "excitement",
+        "euphoria",
+        "enthusiasm",
+        "feeling sad",
+        "low mood",
+        "depression"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/bipolardisorder.html",
+          "Bipolar Disorder"
+        ]
+      ],
+      "icd10cm_codes": "F31.60",
+      "icd10cm": [
+        {
+          "code": "F31.60",
+          "name": "Bipolar disorder, current episode mixed, unspecified"
+        }
+      ]
+    },
+    {
+      "key_id": "6715",
+      "primary_name": "Depression",
+      "term_icd9_code": "296.2",
+      "term_icd9_text": "Severe depressive episode",
+      "consumer_name": "Depression",
+      "is_procedure": false,
+      "word_synonyms": "",
+      "synonyms": [
+        "feeling sad",
+        "low mood",
+        "depression"
+      ],
+      "info_link_data": [
+        [
+          "http://www.nlm.nih.gov/medlineplus/depression.html",
+          "Depression"
+        ]
+      ],
+      "icd10cm_codes": "F32.9",
+      "icd10cm": [
+        {
+          "code": "F32.9",
+          "name": "Major depressive disorder, single episode, unspecified"
+        }
+      ],
+      "description": "A mood disorder causing a persistent feeling of sadness and loss of interest."
+    }
+]

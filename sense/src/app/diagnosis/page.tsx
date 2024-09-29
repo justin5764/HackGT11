@@ -7,6 +7,7 @@ import { AppContext } from '../../context/AppContext';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import VideoRecorder from '../components/VideoRecorder'; // Import VideoRecorder
+import { UserInfo, VideoAnalysis, ApiResponse } from '../../types';
 
 const DiagnosisPage = () => {
   const context = useContext(AppContext);
@@ -38,40 +39,80 @@ const DiagnosisPage = () => {
     return null;
   }
 
-  // Simulate video analysis (replace with real logic)
-  const analyzeVideo = async () => {
-    // If no video file, return the default analysis
-    if (!videoFile) {
-      return {
-        emotionsDetected: ['worried'],
-        bodyLanguage: 'shaking, anxiety',
-        audioTranscription: 'I am very anxious and scared.',
-      };
+  // Analyze Video by uploading to FastAPI
+  const analyzeVideo = async (): Promise<VideoAnalysis> => {
+    try {
+      // Fetch the video from the public folder
+      const response = await fetch('/test4.mp4');
+      
+      // Check if the fetch was successful
+      if (!response.ok) {
+        throw new Error('Failed to fetch the hardcoded video file.');
+      }
+      
+      // Convert the response to a Blob
+      const blob = await response.blob();
+      
+      // Create a File object from the Blob
+      const hardcodedVideoFile = new File([blob], 'test4.mp4', { type: 'video/mp4' });
+      
+      // Prepare FormData
+      const formData = new FormData();
+      formData.append('file', hardcodedVideoFile);
+      
+      // Upload the video to FastAPI backend
+      const uploadResponse = await axios.post<VideoAnalysis>('http://0.0.0.0:8000/api/upload-video', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
+      return uploadResponse.data;
+      
+    } catch (error: any) {
+      // Enhanced error logging
+      if (error.response) {
+        console.error('Server responded with:', error.response.data);
+        throw new Error(error.response.data.detail || 'Failed to analyze video.');
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        throw new Error('No response from server.');
+      } else {
+        console.error('Error setting up request:', error.message);
+        throw new Error('Error setting up request.');
+      }
     }
-
-    // Simulating analysis delay for the case when there is a video
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-      emotionsDetected: ['worried'],
-      bodyLanguage: 'shaking, anxiety',
-      audioTranscription: 'I am very anxious and scared.',
-    };
   };
 
   // Handle form submission to get condition suggestions
   const handleSubmit = async () => {
+    if (!userInfo.name || !userInfo.age) {
+      setError('Please provide both name and age.');
+      return;
+    }
+
+    // if (!videoFile) {
+    //   setError('Please upload a video.');
+    //   return;
+    // }
     setLoading(true);
     setError('');
     setSuggestions('');
     setDiagnosis('');
 
     try {
+      // Step 1: Upload and Analyze Video
       const analysisData = await analyzeVideo();
       setVideoAnalysis(analysisData);
 
-      const response = await axios.post('/api/getConditionSuggestions', {
+      // Step 2: Fetch Condition Suggestions from FastAPI
+      const response = await axios.post<ApiResponse>('http://0.0.0.0:8000/api/process-data', {
         userInfo,
         videoAnalysis: analysisData,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.data.error) {
@@ -83,9 +124,9 @@ const DiagnosisPage = () => {
           .replace(/^- \*\*(.*?)\*\*:.*/, '$1');
         setDiagnosis(primaryDiagnosis || '');
       }
-    } catch (err) {
-      console.error('Error fetching suggestions:', err);
-      setError('An unexpected error occurred while fetching suggestions.');
+    } catch (err: any) {
+      console.error('Error fetching suggestions:', err.message);
+      setError(err.message || 'An unexpected error occurred while fetching suggestions.');
     } finally {
       setLoading(false);
     }
