@@ -40,9 +40,16 @@ const DiagnosisPage = () => {
 
   // Simulate video analysis (replace with real logic)
   const analyzeVideo = async () => {
-    if (!videoFile) throw new Error('No video file uploaded.');
+    // If no video file, return the default analysis
+    if (!videoFile) {
+      return {
+        emotionsDetected: ['worried'],
+        bodyLanguage: 'shaking, anxiety',
+        audioTranscription: 'I am very anxious and scared.',
+      };
+    }
 
-    // Simulating analysis delay
+    // Simulating analysis delay for the case when there is a video
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return {
       emotionsDetected: ['worried'],
@@ -53,11 +60,6 @@ const DiagnosisPage = () => {
 
   // Handle form submission to get condition suggestions
   const handleSubmit = async () => {
-    if (!videoFile) {
-      setError('Please record a video.');
-      return;
-    }
-
     setLoading(true);
     setError('');
     setSuggestions('');

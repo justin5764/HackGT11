@@ -58,7 +58,6 @@ export default function RootLayout({
           {children}
           </AppProvider>
         </UserProvider>
-        <h1>Hello</h1>
       </body>
     </html>
   );
