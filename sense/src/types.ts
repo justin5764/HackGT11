@@ -25,23 +25,14 @@ export interface HealthCondition {
     error?: string;
   }
 
-  // src/types.ts
 
-export interface IVideo {
-  videoId: string;
-  videoUrl: string;
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
 }
 
-export interface IUser {
-  email: string;
-  annualIncome: string;
-  gender: string;
-  race: string;
-  age: string;
-  priorMedicalHistory: string;
-  insuranceInformation: string;
-  phqScore: string;
-  videos: IVideo[];
+export interface ChatResponse {
+  message?: string;
+  error?: string;
 }
-
   
