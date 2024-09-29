@@ -1,13 +1,33 @@
-import { Text } from "../../components"; // Ensure this import is correct
-import LoadResultsLogo from "./loadResultsLogo";
 import React from "react";
-import FadingText from "../../components/FadeText";
+import NavBar from "../../components/NavBar";
+import FadeText from "@/app/components/FadeText";
 
 export default function LoadingResultsPage() {
-    return (
-        <div className="flex w-full flex-col items-center gap-[414px] bg-white-a700 md:gap-[310px] sm:gap-[207px]">
-            <LoadResultsLogo />
-            <FadingText />
-        </div>
-    );
+    const loadingMessages = [
+        "Analyzing your responses...",
+        "Generating your results...",
+        "Preparing your recommendations...",
+      ];
+
+  return (
+    <div style={{ position: "relative", overflow: "hidden", width: "100vw", height: "100vh" }}>
+      <NavBar />
+      <img
+        src="/images/white.png"
+        alt="Full Screen"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+      />
+      <div>
+        <FadeText messages={loadingMessages} nextPage="/home/diagnosis" />
+      </div>
+    </div>
+  );
 }
