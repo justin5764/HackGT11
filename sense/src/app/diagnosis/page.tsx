@@ -54,7 +54,7 @@ const DiagnosisPage = () => {
   // Handle form submission to get condition suggestions
   const handleSubmit = async () => {
     if (!videoFile) {
-      setError('Please record a video.');
+      setError('Please record a video of how they view themselves. Please make it a minute long. ');
       return;
     }
 

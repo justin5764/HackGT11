@@ -98,7 +98,7 @@ const UserInfoPage = () => {
             type="text"
             name="name"
             placeholder="Name"
-            className="border border-gray-300 p-3 w-full my-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 p-3 w-full my-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             value={userInfo.name}
             onChange={handleInputChange}
           />
@@ -106,7 +106,7 @@ const UserInfoPage = () => {
             type="number"
             name="age"
             placeholder="Age"
-            className="border border-gray-300 p-3 w-full my-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 p-3 w-full my-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             value={userInfo.age}
             onChange={handleInputChange}
           />
