@@ -1,5 +1,4 @@
-// src/components/VideoPlayer.tsx
-
+// components/VideoPlayer.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
