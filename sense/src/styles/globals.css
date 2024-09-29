@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 
+@import 'leaflet/dist/leaflet.css';
+
 .scrollable-container {
   height: 100vh;
   overflow-y: auto;
