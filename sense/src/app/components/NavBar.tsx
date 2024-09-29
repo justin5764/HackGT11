@@ -1,13 +1,13 @@
-// src/app/components/Navbar.tsx
+import React from 'react';
+import Image from 'next/image';
+import Navigation from '../components/navigation'
 
 'use client';
-
 import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
 const Navbar: React.FC = () => {
   const { user, isLoading } = useUser();
-
   return (
     <nav className="bg-gray-800 p-4 text-white flex justify-between">
       <div>
@@ -39,5 +39,4 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
-
 export default Navbar;

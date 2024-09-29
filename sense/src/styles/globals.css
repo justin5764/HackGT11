@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @import 'leaflet/dist/leaflet.css';
 
 .scrollable-container {
@@ -25,7 +26,78 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: Inter;
 }
+
+*{
+  box-sizing: border-box;
+  line-height: normal;
+  font-family: inherit;
+  margin: unset;
+}
+
+a {
+  text-decoration: none;
+  display: block;
+}
+
+input {
+  background-color: transparent;
+  width: 100%;
+}
+
+input:focus{
+  outline: none;
+}
+
+ul{
+  margin: 0;
+  margin-inline: unste !important;
+  padding: 0;
+  list-style: none;
+}
+
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/fonts/InterRegular.ttf");
+  font-family: "Inter";
+  font-weight: 400;
+}
+
+@font-face{
+  font-display: swap;
+  font-style: normal;
+  src: url("/fonts/RobotoMedium.ttf");
+  font-family: "Roboto";
+  font-weight: 500;
+}
+
+@layer base{
+  :root {
+    --black_900: #000000;
+    --blue_gray_100: #d9d9d9;
+    --blue_gray_800: #4a4459;
+    --cyan_200: #6ee2f5;
+    --deep_purple_50: #e8def8;
+    --deep_purple_900: #2612a2;
+    --gray_600: #79747e;
+    --indigo_900: #111d60;
+    --indigo_900_01: #101d5f;
+    --white_a700: #ffffff;
+
+    --radius-xs: 30px;
+
+    --space-xs: 12px;
+    --space-sm: 18px;
+    --space-md: 34px;
+    --space-lg: 52px;
+    --space-xl: 60px;
+  }
+}
+
 
 @layer utilities {
   .text-balance {
