@@ -1,13 +1,15 @@
-"use client"
 // pages/VideoPage.tsx or components/SomeComponent.tsx
+"use client";
 import React from 'react';
 import VideoPlayer from '../../components/VideoPlayer'; // Adjust the path as needed
 
 const VideoPage: React.FC = () => {
-  const videoId = '66f91ac0126c039f22018cee'; // The videoId you want to pass
+  // The videoId should match the video document in your MongoDB
+  const videoId = '66f92eba9057e9231bd2f2a9'; // Example video ID
 
   return (
     <div className="flex justify-center items-center h-screen">
+      {/* Pass the videoId prop to the VideoPlayer */}
       <VideoPlayer videoId={videoId} />
     </div>
   );
