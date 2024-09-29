@@ -1,73 +1,43 @@
-import React from 'react';
+// src/app/components/Navbar.tsx
 
-interface NavBarProps {
-  showNext?: boolean;      // Optional prop for showing the Next button
-  showPrevious?: boolean;  // Optional prop for showing the Previous button
-  showForm?: boolean;      // Optional prop for showing the Form button
-}
+'use client';
 
-const NavBar: React.FC<NavBarProps> = ({ showNext, showPrevious, showForm }) => {
+import Link from 'next/link';
+import { useUser } from '@auth0/nextjs-auth0/client';
+
+const Navbar: React.FC = () => {
+  const { user, isLoading } = useUser();
+
   return (
-    <nav style={styles.nav}>
-      <div style={styles.logo}>sense logo</div>
-
-      <div style={styles.navActions}>
-        {/* Conditionally render Previous button */}
-        {showPrevious && (
-          <button style={styles.navButton}>Previous</button>
-        )}
-
-        {/* Conditionally render Form button */}
-        {showForm && (
-          <button style={styles.navButton}>Form</button>
-        )}
-
-        {/* Conditionally render Next button */}
-        {showNext && (
-          <button style={styles.navButton}>Next</button>
+    <nav className="bg-gray-800 p-4 text-white flex justify-between">
+      <div>
+        <Link href="/" className="mr-4">
+          Home
+        </Link>
+        <Link href="/upload" className="mr-4">
+          Upload Videos
+        </Link>
+        {user && (
+          <Link href="/profile" className="mr-4">
+            Profile
+          </Link>
         )}
       </div>
-
-      <button style={styles.logoutButton}>Log out</button>
+      <div>
+        {!isLoading && !user && (
+          <Link href="/api/auth/login" className="mr-4">
+            Login
+          </Link>
+        )}
+        {!isLoading && user && (
+          <>
+            <span className="mr-4">Hello, {user.name}</span>
+            <Link href="/api/auth/logout">Logout</Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };
 
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    background: 'linear-gradient(to right, #00a1ff, #007ba7)', // Blue gradient
-    padding: '10px 20px',
-    height: '70px',
-    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-  },
-  logo: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  navActions: {
-    display: 'flex',
-    gap: '10px',  // Adds space between buttons
-  },
-  navButton: {
-    padding: '10px 15px',
-    backgroundColor: '#f1f1f1',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
-  logoutButton: {
-    padding: '10px 20px',
-    backgroundColor: '#f1f1f1',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  },
-};
-
-export default NavBar;
+export default Navbar;

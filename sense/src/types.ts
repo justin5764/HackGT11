@@ -24,4 +24,24 @@ export interface HealthCondition {
     suggestions: string;
     error?: string;
   }
+
+  // src/types.ts
+
+export interface IVideo {
+  videoId: string;
+  videoUrl: string;
+}
+
+export interface IUser {
+  email: string;
+  annualIncome: string;
+  gender: string;
+  race: string;
+  age: string;
+  priorMedicalHistory: string;
+  insuranceInformation: string;
+  phqScore: string;
+  videos: IVideo[];
+}
+
   
