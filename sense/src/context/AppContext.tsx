@@ -20,6 +20,9 @@ interface AppContextType {
   setError: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  psychiatricAnswers: string[];
+  setPsychiatricAnswers: React.Dispatch<React.SetStateAction<string[]>>;
+
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -32,6 +35,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [suggestions, setSuggestions] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [psychiatricAnswers, setPsychiatricAnswers] = useState<string[]>([]); // Initialize psychiatric answers
+
 
   return (
     <AppContext.Provider
@@ -50,6 +55,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setError,
         loading,
         setLoading,
+        psychiatricAnswers,
+        setPsychiatricAnswers,
+        
       }}
     >
       {children}
