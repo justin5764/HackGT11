@@ -1,4 +1,7 @@
+
 import React from 'react';
+import Image from 'next/image';
+import Navigation from '../components/navigation'
 
 interface NavBarProps {
   showNext?: boolean;      // Optional prop for showing the Next button
@@ -9,9 +12,12 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ showNext, showPrevious, showForm }) => {
   return (
     <nav style={styles.nav}>
-      <div style={styles.logo}>sense logo</div>
+      <div style={styles.logo}>
+        <img src="/images/logo.png" />
+      </div>
 
       <div style={styles.navActions}>
+        <Navigation />
         {/* Conditionally render Previous button */}
         {showPrevious && (
           <button style={styles.navButton}>Previous</button>
@@ -59,6 +65,7 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     fontWeight: 'bold',
+    color: '#000000',
   },
   logoutButton: {
     padding: '10px 20px',
@@ -67,6 +74,7 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     fontWeight: 'bold',
+    color: '#000000',
   },
 };
 
