@@ -22,6 +22,7 @@ interface AppContextType {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   psychiatricAnswers: string[];
   setPsychiatricAnswers: React.Dispatch<React.SetStateAction<string[]>>;
+  
 
 }
 

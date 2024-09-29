@@ -1,4 +1,3 @@
-// components/VideoPlayer.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -14,15 +13,20 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
+        // Fetch the video from the API, passing the video ID
         const response = await axios.get('/api/get-video', {
           params: { id: videoId },
         });
 
+        // Log the video URL (this is the presigned URL from AWS S3)
+        console.log('Video URL:', response.data.videoUrl);
+
+        // If the request is successful, set the video URL in the state
         if (response.status === 200) {
           setVideoUrl(response.data.videoUrl);
         }
       } catch (err) {
-        console.error('Error fetching video:', err);
+        console.error('Error fetching video:', err); // Log any errors
         setError('Failed to load video.');
       } finally {
         setLoading(false);
@@ -42,7 +46,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoId }) => {
 
   return (
     <div className="w-full max-w-md">
-      <video controls src={videoUrl} className="w-full h-auto bg-gray-200"></video>
+      {/* Render the video player with the fetched URL */}
+      <video controls src={videoUrl} className="w-full h-auto bg-gray-200">
+        Your browser does not support the video tag.
+      </video>
     </div>
   );
 };

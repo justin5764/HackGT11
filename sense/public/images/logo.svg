@@ -1,0 +1,27 @@
+<!-- Save this as /public/images/logo.svg -->
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="10"
+  height="10"
+  viewBox="0 0 100 100"
+  fill="none"
+>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4A5568;stop-opacity:1" /> <!-- Tailwind's gray-700 -->
+      <stop offset="100%" style="stop-color:#2D3748;stop-opacity:1" /> <!-- Tailwind's gray-800 -->
+    </linearGradient>
+  </defs>
+  <text
+    x="50%"
+    y="50%"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="80"
+    fill="url(#grad1)"
+  >
+    S
+  </text>
+</svg>

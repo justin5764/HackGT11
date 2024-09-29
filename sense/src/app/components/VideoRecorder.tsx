@@ -226,20 +226,10 @@ const VideoRecorder: React.FC = () => {
           <a
             href={videoURL}
             download="recording.webm"
-            className="mt-2 inline-block px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+            className="mt-2 flex justify-center px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
           >
             Download Video
           </a>
-        </div>
-      )}
-      {downloadURL && (
-        <div className="mt-4 w-full max-w-md">
-          <p>
-            Video URL:{' '}
-            <a href={downloadURL} className="text-blue-500 underline">
-              {downloadURL}
-            </a>
-          </p>
         </div>
       )}
     </div>
