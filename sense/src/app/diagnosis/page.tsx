@@ -33,7 +33,7 @@ const DiagnosisPage = () => {
   } = context;
 
   // Redirect to User Info page if name or age is missing
-  if (!userInfo.name || !userInfo.age) {
+  if (!userInfo.name) {
     router.push('/user-info');
     return null;
   }
@@ -90,44 +90,74 @@ const DiagnosisPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <h1 className="text-2xl font-bold mb-8">Complete Your Diagnosis</h1>
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-8 pb-20 gap-16 sm:p-20">
+      <h1 className="text-3xl font-bold text-gray-800 mb-8">Complete Your Diagnosis</h1>
 
       {/* Video Recorder Section */}
-      <div className="w-full max-w-md">
-        <h2 className="text-lg font-semibold mb-4">Record Your Video</h2>
+      <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Record Your Video</h2>
         <VideoRecorder />
-        {videoFile && <p>Recorded File: {videoFile.name}</p>}
+        {videoFile && (
+          <p className="mt-4 text-gray-600">
+            <span className="font-medium">Recorded File:</span> {videoFile.name}
+          </p>
+        )}
       </div>
 
       {/* Submit Button */}
       <button
         onClick={handleSubmit}
-        className="rounded-full bg-blue-500 text-white px-6 py-2 mt-4 disabled:opacity-50 hover:bg-blue-600 transition"
+        className={`w-full max-w-md py-3 px-6 rounded-full text-white font-semibold ${
+          loading
+            ? 'bg-blue-300 cursor-not-allowed'
+            : 'bg-blue-500 hover:bg-blue-600'
+        } transition-colors duration-300 shadow-lg flex items-center justify-center`}
         disabled={loading}
       >
-        {loading ? 'Processing...' : 'Get Condition Suggestions'}
+        {loading ? (
+          <>
+            {/* Spinner SVG */}
+            <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8H4z"
+              ></path>
+            </svg>
+            Processing...
+          </>
+        ) : (
+          'Get Condition Suggestions'
+        )}
       </button>
 
       {/* Display Condition Suggestions */}
       {suggestions && (
-        <div className="mt-8 w-full max-w-md">
-          <h2 className="text-xl font-bold mb-4">Possible Conditions:</h2>
-          <p className="whitespace-pre-line">{suggestions}</p>
+        <div className="w-full max-w-2xl bg-green-50 p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Possible Conditions:</h2>
+          <p className="whitespace-pre-line text-gray-700">{suggestions}</p>
         </div>
       )}
 
       {/* Display Error Messages */}
       {error && (
-        <div className="mt-8 w-full max-w-md text-red-500">
-          <p>{error}</p>
+        <div className="w-full max-w-2xl bg-red-50 p-6 rounded-lg shadow-md">
+          <p className="text-red-700">{error}</p>
         </div>
       )}
 
       {/* Informational Note */}
       {diagnosis && (
-        <div className="mt-8 w-full max-w-md text-gray-600">
-          <p>
+        <div className="w-full max-w-2xl bg-yellow-50 p-6 rounded-lg shadow-md">
+          <p className="text-gray-700">
             You can access the <strong>Chatbot</strong> and <strong>Treatment Map</strong> by clicking on the respective links in the top navigation bar.
           </p>
         </div>

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const systemPrompt = `You are a helpful assistant providing further questions and support based on the diagnosis: ${diagnosis}. Engage the user to gather more information or offer relevant advice.`;
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: systemPrompt },
         ...messages.map((msg) => ({ role: msg.role, content: msg.content })),
