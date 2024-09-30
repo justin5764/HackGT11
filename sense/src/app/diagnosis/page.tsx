@@ -1,8 +1,6 @@
-// src/app/diagnosis/page.tsx
-
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -12,6 +10,8 @@ import { UserInfo, VideoAnalysis, ApiResponse } from '../../types';
 const DiagnosisPage = () => {
   const context = useContext(AppContext);
   const router = useRouter();
+  const [videoId, setVideoId] = useState<string | null>(null); // State to store MongoDB ID
+  const [videoFile, setVideoFile] = useState<File | null>(null); // State to store the fetched video
 
   if (!context) {
     throw new Error('AppContext is undefined');
@@ -19,8 +19,6 @@ const DiagnosisPage = () => {
 
   const {
     userInfo,
-    videoFile,
-    setVideoFile,
     videoAnalysis,
     setVideoAnalysis,
     diagnosis,
@@ -39,38 +37,54 @@ const DiagnosisPage = () => {
     return null;
   }
 
+  // Function to fetch the video using the MongoDB ID
+  const fetchVideoById = async (id: string) => {
+    try {
+      const response = await axios.get('/api/get-video', {
+        params: { id }, // Use the MongoDB ID as the param
+        responseType: 'blob', // Ensure we get the video as a Blob
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch the video.');
+      }
+
+      // Convert Blob to a File object
+      const fetchedVideoFile = new File([response.data], 'recorded-video.mp4', { type: 'video/mp4' });
+      setVideoFile(fetchedVideoFile); // Store the file in the state
+    } catch (err: any) {
+      console.error('Error fetching video:', err.message);
+      setError(err.message || 'An unexpected error occurred while fetching the video.');
+    }
+  };
+
+  // Automatically fetch the video when the videoId changes
+  useEffect(() => {
+    if (videoId) {
+      fetchVideoById(videoId);
+    }
+  }, [videoId]);
+
   // Analyze Video by uploading to FastAPI
   const analyzeVideo = async (): Promise<VideoAnalysis> => {
     try {
-      // Fetch the video from the public folder
-      const response = await fetch('/test4.mp4');
-      
-      // Check if the fetch was successful
-      if (!response.ok) {
-        throw new Error('Failed to fetch the hardcoded video file.');
+      if (!videoFile) {
+        throw new Error('No video file available for analysis.');
       }
-      
-      // Convert the response to a Blob
-      const blob = await response.blob();
-      
-      // Create a File object from the Blob
-      const hardcodedVideoFile = new File([blob], 'test4.mp4', { type: 'video/mp4' });
-      
-      // Prepare FormData
+
+      // Prepare FormData with the fetched video file
       const formData = new FormData();
-      formData.append('file', hardcodedVideoFile);
-      
+      formData.append('file', videoFile);
+
       // Upload the video to FastAPI backend
       const uploadResponse = await axios.post<VideoAnalysis>('http://0.0.0.0:8000/api/upload-video', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      
+
       return uploadResponse.data;
-      
     } catch (error: any) {
-      // Enhanced error logging
       if (error.response) {
         console.error('Server responded with:', error.response.data);
         throw new Error(error.response.data.detail || 'Failed to analyze video.');
@@ -91,17 +105,18 @@ const DiagnosisPage = () => {
       return;
     }
 
-    // if (!videoFile) {
-    //   setError('Please upload a video.');
-    //   return;
-    // }
+    if (!videoFile) {
+      setError('Please record or fetch a video first.');
+      return;
+    }
+
     setLoading(true);
     setError('');
     setSuggestions('');
     setDiagnosis('');
 
     try {
-      // Step 1: Upload and Analyze Video
+      // Step 1: Analyze Video
       const analysisData = await analyzeVideo();
       setVideoAnalysis(analysisData);
 
@@ -139,10 +154,17 @@ const DiagnosisPage = () => {
       {/* Video Recorder Section */}
       <div className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-gray-700 mb-4">Record Your Video</h2>
-        <VideoRecorder />
+        <VideoRecorder onSaveMongoDBId={setVideoId} /> {/* Pass callback to VideoRecorder */}
+        
+        {videoId && (
+          <div className="mt-4">
+            <p className="text-gray-600">Video ID: {videoId}</p>
+          </div>
+        )}
+
         {videoFile && (
           <p className="mt-4 text-gray-600">
-            <span className="font-medium">Recorded File:</span> {videoFile.name}
+            <span className="font-medium">Fetched Video File:</span> {videoFile.name}
           </p>
         )}
       </div>
@@ -151,29 +173,15 @@ const DiagnosisPage = () => {
       <button
         onClick={handleSubmit}
         className={`w-full max-w-md py-3 px-6 rounded-full text-white font-semibold ${
-          loading
-            ? 'bg-blue-300 cursor-not-allowed'
-            : 'bg-blue-500 hover:bg-blue-600'
+          loading ? 'bg-blue-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
         } transition-colors duration-300 shadow-lg flex items-center justify-center`}
         disabled={loading}
       >
         {loading ? (
           <>
-            {/* Spinner SVG */}
             <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8H4z"
-              ></path>
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
             Processing...
           </>
@@ -197,7 +205,6 @@ const DiagnosisPage = () => {
         </div>
       )}
 
-      {/* Informational Note */}
       {diagnosis && (
         <div className="w-full max-w-2xl bg-yellow-50 p-6 rounded-lg shadow-md">
           <p className="text-gray-700">

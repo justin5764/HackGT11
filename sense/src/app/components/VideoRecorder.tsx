@@ -1,11 +1,15 @@
-// src/app/components/VideoRecorder.tsx
-
-'use client';
-
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const VideoRecorder: React.FC = () => {
+interface VideoRecorderProps {
+
+  onSaveMongoDBId: (id: string) => void;
+
+}
+
+
+
+const VideoRecorder: React.FC<VideoRecorderProps> = ({ onSaveMongoDBId }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [recording, setRecording] = useState<boolean>(false);
@@ -14,9 +18,9 @@ const VideoRecorder: React.FC = () => {
   const [uploading, setUploading] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [downloadURL, setDownloadURL] = useState<string | null>(null);
+  const [mongoDBId, setMongoDBId] = useState<string | null>(null); // New state to store MongoDB ID
   const MAX_RECORDING_TIME = 300; // 5 minutes
 
-  // Feature detection on component mount
   useEffect(() => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       setError('Your browser does not support accessing media devices.');
@@ -27,7 +31,6 @@ const VideoRecorder: React.FC = () => {
     }
   }, []);
 
-  // Automatically stop recording after MAX_RECORDING_TIME
   useEffect(() => {
     let timer: NodeJS.Timeout;
 
@@ -43,7 +46,6 @@ const VideoRecorder: React.FC = () => {
     };
   }, [recording]);
 
-  // Clean up object URL on unmount or when videoURL changes
   useEffect(() => {
     return () => {
       if (videoURL) {
@@ -52,11 +54,9 @@ const VideoRecorder: React.FC = () => {
     };
   }, [videoURL]);
 
-  // Function to start recording
   const startRecording = async () => {
     setError('');
     try {
-      // Request access to the user's camera and microphone
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
@@ -68,12 +68,10 @@ const VideoRecorder: React.FC = () => {
         videoRef.current.muted = true;
       }
 
-      // Initialize MediaRecorder with the stream
       const mediaRecorder = new MediaRecorder(stream, {
         mimeType: 'video/webm',
       });
 
-      // Collect video data chunks
       const videoChunks: Blob[] = [];
       mediaRecorder.ondataavailable = (event: BlobEvent) => {
         if (event.data.size > 0) {
@@ -81,7 +79,6 @@ const VideoRecorder: React.FC = () => {
         }
       };
 
-      // Handle the stop event to prepare for playback and upload
       mediaRecorder.onstop = async () => {
         const blob = new Blob(videoChunks, { type: 'video/webm' });
         const url = URL.createObjectURL(blob);
@@ -96,8 +93,11 @@ const VideoRecorder: React.FC = () => {
           videoRef.current.play();
         }
 
-        // Upload the video
-        await uploadVideo(blob);
+        // Upload the video and get the MongoDB ID
+        const id = await uploadVideo(blob);
+        if (id) {
+          setMongoDBId(id); // Set the MongoDB ID in state
+        }
       };
 
       mediaRecorder.start();
@@ -109,7 +109,6 @@ const VideoRecorder: React.FC = () => {
     }
   };
 
-  // Function to stop recording
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -119,13 +118,11 @@ const VideoRecorder: React.FC = () => {
     }
   };
 
-  // Function to upload video to S3 using presigned URL
-  const uploadVideo = async (blob: Blob) => {
+  const uploadVideo = async (blob: Blob): Promise<string | null> => {
     setUploading(true);
     setUploadProgress(0);
 
     try {
-      // Step 1: Request a presigned URL from the backend
       const generateResponse = await axios.post('/api/generate-presigned-url', {
         fileType: blob.type,
       });
@@ -136,7 +133,6 @@ const VideoRecorder: React.FC = () => {
 
       const { presignedUrl, fileUrl } = generateResponse.data;
 
-      // Step 2: Upload the video directly to S3 using the presigned URL
       await axios.put(presignedUrl, blob, {
         headers: {
           'Content-Type': blob.type,
@@ -151,29 +147,24 @@ const VideoRecorder: React.FC = () => {
         },
       });
 
-      // Step 3: Save video metadata to MongoDB Atlas
       const saveResponse = await axios.post('/api/save-video-metadata', {
         videoUrl: fileUrl,
-        filename: presignedUrl.split('/').pop(), // Extract filename from URL
+        filename: presignedUrl.split('/').pop(),
         mimeType: blob.type,
         fileSize: blob.size,
       });
 
       if (saveResponse.status === 200) {
-        console.log('Video metadata saved successfully:', saveResponse.data.video);
-        alert('Video uploaded and saved successfully!');
-        setDownloadURL(saveResponse.data.video.videoUrl); // Optional: Update state with saved video URL
+        const videoData = saveResponse.data.video;
+        console.log('MongoDB ID:', videoData._id);
+        return videoData._id; // Return the MongoDB ID
       }
+
+      return null;
     } catch (error: any) {
       console.error('Error uploading video:', error);
       setError('Failed to upload video.');
-
-      // Optional: Provide more detailed error messages based on the response
-      if (error.response && error.response.data && error.response.data.error) {
-        setError(`Upload failed: ${error.response.data.error}`);
-      } else {
-        setError('Failed to upload video due to an unexpected error.');
-      }
+      return null;
     } finally {
       setUploading(false);
     }
@@ -230,6 +221,11 @@ const VideoRecorder: React.FC = () => {
           >
             Download Video
           </a>
+        </div>
+      )}
+      {mongoDBId && ( // Display MongoDB ID when available
+        <div className="mt-4">
+          <p>MongoDB Video ID: {mongoDBId}</p>
         </div>
       )}
     </div>
